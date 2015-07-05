@@ -27,6 +27,21 @@ identity =
         # ok
         callback(null, token)
 
+  getGitHubUserAndToken: (chatUser, callback) ->
+    @client.get "ghid:chat:#{chatUser}", (err, githubUser) =>
+      # redis err
+      return callback(err: err, type: 'redis') if err
+
+      # github->chat username missing
+      return callback(err: 'missing', type: 'github user') unless githubUser
+
+      @client.get "ghid:token:#{githubUser}", (err, token) ->
+        # redis err
+        return callback(err: err, type: 'redis') if err
+
+        # ok
+        callback(null, githubUser, token)
+
   setGitHubUserAndToken: (githubUser, token, callback) ->
     @client.set "ghid:token:#{githubUser}", token, (err, reply) ->
       # redis err
