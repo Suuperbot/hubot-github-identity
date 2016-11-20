@@ -23,8 +23,8 @@
   },
 
   "dependencies": {
-    "redis": "~0.12.1",
-    "connect": "~2.25.7"
+    "redis": "~2.6.3",
+    "connect": "~3.5.0"
   },
 
   "devDependencies": {
